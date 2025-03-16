@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';  // Correc
 // ApiService.js
 const API_URL = 'https://user.y2tek.io/';  // Example API URL
 const BOT_API_URL = 'https://userbot.y2tek.io/';  // Example API URL
+const TRANSCATION_API_URL = 'https://transaction.y2tek.io/transaction/';  // Example API URL
 
 // Function to fetch data from API
 export const getData = async (endpoint: any) => {
@@ -92,6 +93,10 @@ export const getDataAfterLogInValidated = async (endpoint: any) => {
   const refreshToken = (await AsyncStorage.getItem('refreshToken'));
   const tokenType = (await AsyncStorage.getItem('tokenType'));
   const email = (await AsyncStorage.getItem('email'));
+
+  //console.log(accessToken);
+  //console.log(idToken);
+  //console.log(refreshToken);
 
 
   const rawHeaders = {
@@ -237,3 +242,156 @@ export const getSymbolData = async (endpoint: any) => {
 };
 
 
+export const getPLData = async () => 
+{
+  
+  const accessToken = (await AsyncStorage.getItem('accessToken'));
+  const idToken = (await AsyncStorage.getItem('idToken'));
+  const refreshToken = (await AsyncStorage.getItem('refreshToken'));
+  const tokenType = (await AsyncStorage.getItem('tokenType'));
+  const email = (await AsyncStorage.getItem('email'));
+   const userName = (await AsyncStorage.getItem('userName'));
+
+
+  const rawHeaders = {
+    'Accept': 'application/json',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Content-Type': 'application/json',
+    'Host': 'example.com',
+    'Origin': 'https://bot.y2tek.io',
+    'Referer': 'https://bot.y2tek.io/',
+    'Authorization': accessToken ? `Bearer ${accessToken}` : undefined,
+    'x-api-key': '12345GATGAT34562CDRSCEEG3T',
+    'x-id-token': idToken,
+    'X-REFRESH-TOKEN': refreshToken,
+  };
+
+  // Clean up the headers to ensure no null or undefined values
+  const cleanedHeaders = Object.fromEntries(
+    Object.entries(rawHeaders)
+      .filter(([_, value]) => value != null)  // Remove null or undefined values
+      .map(([key, value]) => [key, value as string]) // Ensure all values are strings
+  )
+
+  const url = `${TRANSCATION_API_URL+'pl?userName='+userName}`;
+  console.log(url);
+  console.log(cleanedHeaders);
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: cleanedHeaders,
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+// Function to post data to API (if needed)
+export const getManualTradePL = async (endpoint: any) => {
+
+  const accessToken = (await AsyncStorage.getItem('accessToken'));
+  const idToken = (await AsyncStorage.getItem('idToken'));
+  const refreshToken = (await AsyncStorage.getItem('refreshToken'));
+  const tokenType = (await AsyncStorage.getItem('tokenType'));
+  const email = (await AsyncStorage.getItem('email'));
+  const userName = (await AsyncStorage.getItem('userName'));
+
+  const rawHeaders = {
+    'Accept': 'application/json',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Content-Type': 'application/json',
+    'Host': 'example.com',
+    'Origin': 'https://bot.y2tek.io',
+    'Referer': 'https://bot.y2tek.io/',
+    'Authorization': accessToken ? `Bearer ${accessToken}` : undefined,
+    'x-api-key': '12345GATGAT34562CDRSCEEG3T',
+    'x-id-token': idToken,
+    'X-REFRESH-TOKEN': refreshToken,
+  };
+
+  // Clean up the headers to ensure no null or undefined values
+  const cleanedHeaders = Object.fromEntries(
+    Object.entries(rawHeaders)
+      .filter(([_, value]) => value != null)  // Remove null or undefined values
+      .map(([key, value]) => [key, value as string]) // Ensure all values are strings
+  )
+
+  const url = `${TRANSCATION_API_URL+userName+'?userName='+userName+'&'}${endpoint}`;
+  console.log(url);
+  console.log(cleanedHeaders);
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: cleanedHeaders,
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+export const getManualTrade = async () => 
+  {
+    
+    const accessToken = (await AsyncStorage.getItem('accessToken'));
+    const idToken = (await AsyncStorage.getItem('idToken'));
+    const refreshToken = (await AsyncStorage.getItem('refreshToken'));
+    const tokenType = (await AsyncStorage.getItem('tokenType'));
+    const email = (await AsyncStorage.getItem('email'));
+     const userName = (await AsyncStorage.getItem('userName'));
+  
+  
+    const rawHeaders = {
+      'Accept': 'application/json',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Content-Type': 'application/json',
+      'Host': 'example.com',
+      'Origin': 'https://bot.y2tek.io',
+      'Referer': 'https://bot.y2tek.io/',
+      'Authorization': accessToken ? `Bearer ${accessToken}` : undefined,
+      'x-api-key': '12345GATGAT34562CDRSCEEG3T',
+      'x-id-token': idToken,
+      'X-REFRESH-TOKEN': refreshToken,
+    };
+  
+    // Clean up the headers to ensure no null or undefined values
+    const cleanedHeaders = Object.fromEntries(
+      Object.entries(rawHeaders)
+        .filter(([_, value]) => value != null)  // Remove null or undefined values
+        .map(([key, value]) => [key, value as string]) // Ensure all values are strings
+    )
+  
+    const url = `${BOT_API_URL+'bot/'+userName+'/manualTrade'}`;
+    console.log(url);
+    console.log(cleanedHeaders);
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: cleanedHeaders,
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
