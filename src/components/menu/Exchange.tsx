@@ -180,7 +180,7 @@ const Exchange = () => {
                             </View>
                             <View style={styles.subContainer_111}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    {/* <SvgUri  width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> */}
+                                    <SvgUri  width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> 
                                     <Text style={{ marginLeft: 5, fontSize: 13, }}>12-01-2024</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 100 }}>

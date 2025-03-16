@@ -2,13 +2,32 @@ import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
 import {  View, StyleSheet, Text, Image, ScrollView,TouchableOpacity } from 'react-native';
 import SvgUri from 'react-native-svg-uri';
+import DropdownComponent from '../../utils/DropdownComponent';
+import { getManualTrade } from '../../api/AuthService';
 
 const TradeBook = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+     const [response, setResponse] = useState([]);
     const navigation = useNavigation();
     const handleGoBack = () => {
         console.log("Selected Index navigate back")
         navigation.goBack();  // This goes back to the previous screen in the stack
     };
+
+    const formatDate = (date) => {
+        const d = new Date(date);
+        const day = d.getDate().toString().padStart(2, '0');
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
+    const data = [
+        { label: 'All', value: 'all' },
+        { label: 'Active', value: 'active' },
+        { label: 'In Active', value: 'inactive' },
+    ];
 
     const plans = ['1', '2', '3', '4'];
     const details = {
@@ -17,14 +36,45 @@ const TradeBook = () => {
         'Solana(SOLUSDT)_2': '1',//item.dashboardData.percentageTimeInTrades = 0,//'0.295',
     };
 
+    const callAPIOnLoad = () => {
+        getManualTradeList();
+    };
+
     const [selectedTab, setSelectedTab] = useState(0); // Initially, the first tab is selected
 
     const navigateToRipple = (index: React.SetStateAction<number>) => {
         navigation.navigate('');
     };
 
+
+    const getManualTradeList = async () => {
+                try {
+                    setLoading(true);
+                    setError('');
+                    
+                    try {
+                        const responseData = await getManualTrade();  // Get posts from API
+                        console.log("response of bot", responseData);
+                        setResponse(responseData);
+        
+                    } catch (err) {
+                        setError('Failed to fetch data');
+                    } finally {
+                        setLoading(false);
+                    }
+        
+                    // Get Location (latitude and longitude)
+        
+                } catch (error) {
+                    console.error('Error gathering device info:', error);
+        
+                }
+            };
+    
+    
+
     return (
-        <View style={styles.container}>
+        <View style={styles.container} onLayout={callAPIOnLoad}>
             <View style={{
                 backgroundColor: "white",
                 flexDirection: "row",
@@ -52,85 +102,65 @@ const TradeBook = () => {
             <ScrollView style={styles.scrollContainer}>
 
                 <View style={styles.container_1} >
-                    <View style={styles.subContainer_1}>
-                        <Text style={styles.titleDocuments}>All</Text>
-                        <Image source={require('../../assets/images/navigate.png')} />
+                <View style={{ width: '100%', height: 60 }}>
+                        <DropdownComponent data1={data} dropdowntype={'Bot List'} />
                     </View>
 
                     <View style={styles.subContainer_1}>
                         <Text style={styles.titleDocuments}>2025-01-12</Text>
                         <Text style={styles.titleDocuments}> to </Text>
                         <Text style={styles.titleDocuments}>2024-01-10</Text>
-                        {/* <SvgUri  width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> */}
+                        <SvgUri  width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> 
                     </View>
                 </View>
 
                 <View style={styles.buyBotContainer_11}>
-                    {/* <SvgUri width="25" height="25" source={{ uri:'https://bot.y2tek.io/6e25eb3484b4cb507f7a.svg'}} /> */}
+                    <SvgUri width="25" height="25" source={{ uri:'https://bot.y2tek.io/6e25eb3484b4cb507f7a.svg'}} /> 
                     <Text style={styles.text_Theme}>All Trades</Text>
                 </View>
 
-                {Object.entries(details).map(([key, value], index) => (
+                {Object.entries(response).map(([key, value], index) => (
                     <View style={styles.buyBotContainer} >
                         <View style={styles.subContainer}>
-                            <Text style={styles.titleDocuments}>{key}</Text>
-                            <Text style={{ color: 'white', fontSize: 10,backgroundColor:'#89BC42',borderRadius:5,height:20 ,lineHeight:20,width:40,textAlign:'center'}}>BUY</Text>
+                            <Text style={styles.titleDocuments}>{value.symbol}</Text>
+                            <Text style={{ color: 'white', fontSize: 10,backgroundColor:'#89BC42',borderRadius:5,height:20 ,lineHeight:20,width:40,textAlign:'center'}}>{value.side}</Text>
                         </View>
                         <View style={styles.priceViewContainer}>
                             <View style={styles.priceView}>
                                 <Text style={styles.titleText_1}>QTY</Text>
-                                <Text style={styles.priceText_1}>29</Text>
+                                <Text style={styles.priceText_1}>{value.qty}</Text>
                             </View>
                             <View style={styles.priceView}>
                                 <Text style={styles.titleText_1}>Price</Text>
-                                <Text style={styles.priceText_1}>15.929701</Text>
+                                <Text style={styles.priceText_1}>{value.price}</Text>
                             </View>
                         </View>
 
                         <View style={styles.priceViewContainer}>
                             <View style={styles.priceView}>
                                 <Text style={styles.titleText_1}>Unit Price</Text>
-                                <Text style={styles.priceText_1}>95.86</Text>
+                                <Text style={styles.priceText_1}>{value.targetPrice}</Text>
                             </View>
                             <View style={styles.priceView}>
                                 <Text style={styles.titleText_1}>Trade ID</Text>
-                                <Text style={styles.priceText_1}>442331149</Text>
+                                <Text style={styles.priceText_1}>{value.tradeId}</Text>
                             </View>
                         </View>
 
                         <View style={styles.subContainer_111}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            {/* <SvgUri  width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> */}
-                                <Text style={{ marginLeft: 5, fontSize: 13, }}>12-01-2024</Text>
+                            <SvgUri  width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> 
+                                <Text style={{ marginLeft: 5, fontSize: 13, }}>{formatDate(value.time)}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 100 }}>
                                 <Text style={{ marginLeft: 5, fontSize: 11,color: 'gray' }}>Order ID</Text>
-                                <Text style={{ marginLeft: 5, fontSize: 11, color: 'black' }}>4801899637</Text>
+                                <Text style={{ marginLeft: 5, fontSize: 11, color: 'black' }}>{value.orderId}</Text>
                             </View>
                         </View>
                     </View>
                     
                 ))}
-                {/* <View style={styles.priceViewContainer_111}>
-                    <Text style={styles.text_4}>Basic Performance Matrics</Text>
-                    {Object.entries(basicMatrics).map(([key, value], index) => (
-                        <View key={index} style={styles.subViewWithBorder}>
-                            <Text style={styles.text_3}>{key}</Text>
-                            <Text style={styles.text_2}>{value}</Text>
-                        </View>
-                    ))}
-                </View>
-
-                <View style={styles.priceViewContainer_111}>
-                <Text style={styles.text_4}>Advance Performance Matrics</Text>
-                {Object.entries(advanceMatrics).map(([key, value], index) => (
-                    <View key={index} style={styles.subViewWithBorder}>
-                        <Text style={styles.text_3}>{key}</Text>
-                        <Text style={styles.text_2}>{value}</Text>
-                    </View>
-                ))}
-                </View>
-                 */}
+                
             </ScrollView>
 
         </View>
@@ -231,6 +261,7 @@ const styles = StyleSheet.create({
         height:30,
         flexDirection: 'row', // Aligns image and text horizontally
         marginLeft: 5,
+        marginRight:10,
         borderRadius: 8,
     },
 
@@ -262,10 +293,10 @@ const styles = StyleSheet.create({
     },
 
     priceViewContainer: {
-        width: '100%',
+        width: '98%',
         flexDirection: 'row', // Aligns image and text horizontally
         marginLeft:5,
-        marginRight:10,
+        marginRight:15,
         marginBottom:10,
         height: 30,
         backgroundColor : 'white',
@@ -330,8 +361,6 @@ const styles = StyleSheet.create({
     container_1: {
         height: 110,
         backgroundColor: 'white',
-        marginLeft: 15,
-        marginRight: 15,
         marginTop:10,
         marginBottom:10,
         borderRadius: 8,

@@ -65,7 +65,7 @@ const Transactions = () => {
 
                     <View style={styles.buyBotContainer_1}>
 
-                        {/* <SvgUri  width="25" height="25" source={{ uri:'https://bot.y2tek.io/6e25eb3484b4cb507f7a.svg' }}/> */}
+                        <SvgUri  width="25" height="25" source={{ uri:'https://bot.y2tek.io/6e25eb3484b4cb507f7a.svg' }}/> 
 
                         <Text style={styles.text_Theme}>Statement</Text>
                         {/* {data.userBotListResponse.length} */}
@@ -83,18 +83,18 @@ const Transactions = () => {
                             <View style={styles.subView_1}>
                                 <View style={styles.priceView_1}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
-                                        {/* <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> */}
+                                        <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> 
                                         <Text style={{ color: '#C13441', fontSize: 15, marginLeft: 10 }}>USDT</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                                        {/* <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> */}
+                                        <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> 
                                         <Text style={{ color: 'black', fontSize: 15,padding:10 }}>Bitcoin</Text>
                                         <Text style={{ color: 'white', fontSize: 10,backgroundColor:'#C13441',borderRadius:5,height:20 ,lineHeight:20,width:40,textAlign:'center'}}>SELL</Text>
                                      </View>
                                 </View>
                                 <View style={styles.priceView}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
-                                        {/* <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> */}
+                                         <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> 
                                         <Text style={{ color: '#C13441', fontSize: 15, marginLeft: 10 }}>Credit</Text>
                                     </View>
                                     <Text style={styles.titleText_11}>14.312658</Text>
@@ -105,7 +105,7 @@ const Transactions = () => {
                                         <Text style={{ marginLeft: 5, fontSize: 15, }}>15.929701</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 100 }}>
-                                        {/* <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> */}
+                                        <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}/> 
                                         <Text style={{ marginLeft: 5, fontSize: 15 }}>12-01-2024</Text>
                                         <Text style={{ marginLeft: 5, fontSize: 12, color: 'gray' }}>08:47PM</Text>
                                     </View>

@@ -48,7 +48,7 @@ const BacktestNameBuy = () => {
                 <View style={styles.buyBotContainer_1}>
                     <View style={styles.subContainer}>
                         <Text style={styles.titleDocuments_1}>BackTesting Buy and Sell history</Text>
-                        {/* <SvgUri width="15" height="15"  source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> */}
+                        <SvgUri width="15" height="15"  source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> 
                     </View>
 
                     <View style={styles.priceViewContainer_111}>

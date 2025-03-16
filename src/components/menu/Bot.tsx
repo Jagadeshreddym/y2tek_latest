@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { getBotData } from '../../api/AuthService';
 import SvgUri from 'react-native-svg-uri';
 
+
 const Bot = () => {
     const navigation = useNavigation();
     const [data, setData] = useState([]);
@@ -28,6 +29,12 @@ const Bot = () => {
         navigation.goBack();  // This goes back to the previous screen in the stack
     };
 
+    const createBot = () => {
+        navigation.navigate('createBot_Page1');
+        console.log("Selected Index navigate back")
+        // navigation.goBack();  // This goes back to the previous screen in the stack
+    };
+
     const [searchQuery, setSearchQuery] = useState('');
 
     const navigateToBuyBot = (index: React.SetStateAction<number>) => {
@@ -40,7 +47,8 @@ const Bot = () => {
     };
 
     const navigateToPL = () => {
-        navigation.navigate('pandl');
+        console.log('from bot screen', data);
+        navigation.navigate('pandl', {userData: data});
     };
 
     const navigateToTradeBook = () => {
@@ -173,7 +181,10 @@ const Bot = () => {
                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 8, }}>
                         <TouchableOpacity style={styles.button} onPress={navigateToPL}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                {/* <SvgUri width="25" height="25"  source={{ uri:'https://bot.y2tek.io/62003140aca15e9c32e6.svg'}} /> */}
+                                {/* <SvgUri width="25" height="25"  source={{  u:'https://bot.y2tek.io/62003140aca15e9c32e6.svg'}} />  */}
+                                <Image
+                                    source={require("../../assets/images/p_and_l.png")} style={styles.timeIcon}
+                                />
                                 <Text style={styles.text_1}>P&L</Text>
                             </View>
 
@@ -214,24 +225,32 @@ const Bot = () => {
 
                     <View style={styles.buyBotContainer_1}>
 
-                        {/* <SvgUri width="25" height="25" source={{ uri:'https://bot.y2tek.io/6e25eb3484b4cb507f7a.svg' }}/> */}
+                        { <SvgUri width="25" height="25" source={{ uri:'https://bot.y2tek.io/6e25eb3484b4cb507f7a.svg' }}/> }
 
                         <Text style={styles.text_Bot}>{data?.userBotListResponse === undefined ? '' : data?.userBotListResponse?.length + ' Bots'}</Text>
                         {/* {data.userBotListResponse.length} */}
                         {/* <Text style={styles.text_Bot}>10 Bots</Text> */}
+
+                        <TouchableOpacity >
+                        <View style={{flexDirection:'row', alignItems:'center',  borderRadius: 4,borderColor: '#C8CED1',borderWidth: 1,padding:4, marginLeft:'64%', width:'25%'}} > 
+                            <Text >Sort By</Text>
+                            <Image style={{marginLeft:10}}source={require("../../assets/images/sort.png")} />
+                        </View>
+                </TouchableOpacity>
+                        
                     </View>
 
                     {/* List of filtered bots */}
                     <FlatList
                         data={filteredBots}
                         keyExtractor={(item) => item.botId.toString()}
-                        renderItem={({ item }) => (
+                        renderItem={({ item , index}) => (
                             <TouchableOpacity
                                 key={item.botId}
                                 style={[
                                     styles.tab,
                                 ]}
-                                onPress={() => navigateToBuyBot(item.botId)} // Change selected tab
+                                onPress={() => navigateToBuyBot(index)} // Change selected tab
                             >
 
                                 <View style={styles.buyBotContainer}>
@@ -314,7 +333,13 @@ const Bot = () => {
 
                 </View>
             </ScrollView>
-
+            <View style={styles.buttonContainer_createBot}>
+                <TouchableOpacity onPress={createBot}>
+                    <Image
+                        source={require("../../assets/images/create_bot.png")}
+                    />
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -612,6 +637,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 10,
+        paddingLeft:10,
         height: 40,
         borderRadius: 8,
         borderColor: '#ccc',
@@ -706,6 +732,14 @@ const styles = StyleSheet.create({
         // marginTop: 15,
         borderRadius: 8,
     },
+
+    buttonContainer_createBot: {
+        position: 'absolute', // Position the button absolutely
+        bottom: 30,           // Distance from the bottom of the screen
+        left: '80%',          // Horizontally center it
+       // transform: [{ translateX: -50% }], // Center it perfectly
+        zIndex: 1,            // Ensure it's above other elements
+      },
 });
 
 export default Bot;

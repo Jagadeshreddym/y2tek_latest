@@ -21,6 +21,7 @@ const BotBuyName = ({ route }) => {
     const screenHeight = 300;
 
     const navigation = useNavigation();
+    console.log("Selected Index navigate back", )
     const plans = ['1'];
     const handleGoBack = () => {
         console.log("Selected Index navigate back")
@@ -239,7 +240,7 @@ const BotBuyName = ({ route }) => {
                 <View style={styles.buyBotContainer_1}>
                     <View style={styles.subContainer}>
                         <Text style={styles.titleDocuments_1}>Live Price Chart with Buy and Sell History</Text>
-                        {/* <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> */}
+                        <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg'}} /> 
                     </View>
 
                     {/* <View style={styles.priceViewContainer_11}> */}

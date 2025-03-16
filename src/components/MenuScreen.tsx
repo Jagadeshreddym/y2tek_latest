@@ -1,7 +1,7 @@
 // screens/DetailsScreen.tsx
 
 import React from 'react';
-import { View, Text, Image , ScrollView, Alert} from 'react-native';
+import { View, Text, Image , ScrollView, Alert, StyleSheet,Button} from 'react-native';
 import Card from '../utils/Card';
 import { useNavigation } from '@react-navigation/native';
 

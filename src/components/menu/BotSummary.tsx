@@ -121,12 +121,12 @@ const BotSummary = ({ route }) => {
             <ScrollView style={styles.scrollContainer}>
                 <View style={styles.subView_1}>
                     <View style={styles.subView}>
-                         {/* <SvgUri width="18" height="20" source={{ uri:'https://bot.y2tek.io/4cfad0a1de15734b2577.svg'}} /> */}
+                         <SvgUri width="18" height="20" source={{ uri:'https://bot.y2tek.io/4cfad0a1de15734b2577.svg'}} /> 
                         <Text style={styles.text_1}>{item.botName}</Text>
                     </View>
 
                     <View style={styles.subView}>
-                        {/* <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}  /> */}
+                        <SvgUri width="15" height="15" source={{ uri:'https://bot.y2tek.io/4eaa85c23ff8d9b9debe.svg' }}  /> 
                         <Text style={styles.text_1}>{formatDate(data.createdDate)}</Text>
                         <Text style={styles.text_11}> {getTime(data.createdDate)}</Text>
                     </View>
